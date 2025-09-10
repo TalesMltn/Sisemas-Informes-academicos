@@ -8,13 +8,20 @@
 </head>
 <body class="bg-gray-100 font-sans">
     <nav class="bg-white shadow p-4">
-        <div class="container mx-auto flex justify-between">
-            <a href="{{ route('dashboard') }}" class="font-bold text-xl">Sistema Informes</a>
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Marca / Título -->
+            <div class="flex items-center space-x-6">
+                <a href="{{ route('dashboard') }}" class="font-bold text-xl">Sistema Informes</a>
+                <a href="{{ route('estudiantes.index') }}" class="text-gray-700 hover:text-blue-500">Estudiantes</a>
+                <a href="{{ route('informes.index') }}" class="text-gray-700 hover:text-blue-500">Informes</a>
+            </div>
+
+            <!-- Usuario y Cerrar sesión -->
             <div>
                 <span class="mr-4">{{ auth()->user()->name }}</span>
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
-                    <button type="submit" class="text-red-500">Cerrar sesión</button>
+                    <button type="submit" class="text-red-500 hover:underline">Cerrar sesión</button>
                 </form>
             </div>
         </div>

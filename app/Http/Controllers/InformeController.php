@@ -2,63 +2,88 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Informe;
+use App\Models\Estudiante;
 use Illuminate\Http\Request;
 
 class InformeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Mostrar listado de informes.
      */
     public function index()
     {
-        //
+        $informes = Informe::with('estudiante')->get();
+        return view('informes.index', compact('informes'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostrar formulario para crear informe.
      */
     public function create()
     {
-        //
+        $estudiantes = Estudiante::all();
+        return view('informes.create', compact('estudiantes'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guardar nuevo informe.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'estudiante_id' => 'required|exists:estudiantes,id',
+            'titulo'        => 'required|string|max:255',
+            'descripcion'   => 'required|string',
+            'fecha'         => 'required|date',
+        ]);
+
+        Informe::create($request->all());
+
+        return redirect()->route('informes.index')->with('success', 'Informe creado correctamente.');
     }
 
     /**
-     * Display the specified resource.
+     * Mostrar detalle de un informe.
      */
-    public function show(string $id)
+    public function show(Informe $informe)
     {
-        //
+        return view('informes.show', compact('informe'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Formulario para editar informe.
      */
-    public function edit(string $id)
+    public function edit(Informe $informe)
     {
-        //
+        $estudiantes = Estudiante::all();
+        return view('informes.edit', compact('informe', 'estudiantes'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar informe.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Informe $informe)
     {
-        //
+        $request->validate([
+            'estudiante_id' => 'required|exists:estudiantes,id',
+            'titulo'        => 'required|string|max:255',
+            'descripcion'   => 'required|string',
+            'fecha'         => 'required|date',
+        ]);
+
+        $informe->update($request->all());
+
+        return redirect()->route('informes.index')->with('success', 'Informe actualizado correctamente.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar informe.
      */
-    public function destroy(string $id)
+    public function destroy(Informe $informe)
     {
-        //
+        $informe->delete();
+
+        return redirect()->route('informes.index')->with('success', 'Informe eliminado correctamente.');
     }
 }

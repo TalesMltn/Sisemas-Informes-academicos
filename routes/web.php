@@ -17,13 +17,20 @@ Route::get('/', function () {
 // ------------------------
 // Rutas de autenticación
 // ------------------------
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'authenticate']);
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/login', 'login')->name('login');
+    Route::post('/login', 'authenticate');
+    Route::get('/register', 'register')->name('register');
+    Route::post('/register', 'store');
+    Route::post('/logout', 'logout')->name('logout');
+});
 
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/register', [AuthController::class, 'store']);
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+// ------------------------
+// Redirección después del login
+// ------------------------
+Route::get('/home', function () {
+    return redirect()->route('dashboard');
+})->name('home');
 
 // ------------------------
 // Rutas protegidas (requieren login)
@@ -42,4 +49,12 @@ Route::middleware('auth')->group(function() {
     // Perfil de usuario
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/show', [ProfileController::class, 'show'])->name('profile.show');
+});
+
+// ------------------------
+// Ruta 404 personalizada
+// ------------------------
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
 });
