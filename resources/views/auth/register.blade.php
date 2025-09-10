@@ -66,4 +66,8 @@
             </p>
         </div>
     </div>
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> aca3c73b37cc584910a9580f1046e12989420178
