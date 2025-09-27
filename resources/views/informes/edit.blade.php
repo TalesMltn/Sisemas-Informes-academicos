@@ -16,18 +16,34 @@
 <form action="{{ route('informes.update', $informe->id) }}" method="POST" class="bg-white p-6 rounded shadow max-w-md">
     @csrf
     @method('PATCH')
+
+    <div class="mb-4">
+        <label class="block mb-1">Estudiante</label>
+        <select name="estudiante_id" class="w-full border p-2 rounded" required>
+            <option value="">-- Seleccione un estudiante --</option>
+            @foreach($estudiantes as $estudiante)
+                <option value="{{ $estudiante->id }}" {{ old('estudiante_id', $informe->estudiante_id) == $estudiante->id ? 'selected' : '' }}>
+                    {{ $estudiante->nombre }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
     <div class="mb-4">
         <label class="block mb-1">Título</label>
         <input type="text" name="titulo" class="w-full border p-2 rounded" value="{{ old('titulo', $informe->titulo) }}" required>
     </div>
+
     <div class="mb-4">
         <label class="block mb-1">Descripción</label>
         <textarea name="descripcion" class="w-full border p-2 rounded" required>{{ old('descripcion', $informe->descripcion) }}</textarea>
     </div>
+
     <div class="mb-4">
         <label class="block mb-1">Fecha</label>
         <input type="date" name="fecha" class="w-full border p-2 rounded" value="{{ old('fecha', $informe->fecha) }}" required>
     </div>
+
     <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded">Actualizar</button>
     <a href="{{ route('informes.index') }}" class="ml-2 text-gray-600">Cancelar</a>
 </form>
