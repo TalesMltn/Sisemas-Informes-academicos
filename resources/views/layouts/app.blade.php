@@ -8,12 +8,14 @@
 </head>
 <body class="bg-gray-100 font-sans">
     <nav class="bg-white shadow p-4">
-        <div class="container mx-auto flex justify-between items-center">
+        <div class="flex justify-between items-center px-8 py-4 w-full">
             <!-- Marca / Título -->
             <div class="flex items-center space-x-6">
                 <a href="{{ route('dashboard') }}" class="font-bold text-xl">Sistema Informes</a>
                 <a href="{{ route('estudiantes.index') }}" class="text-gray-700 hover:text-blue-500">Estudiantes</a>
                 <a href="{{ route('informes.index') }}" class="text-gray-700 hover:text-blue-500">Informes</a>
+                <a href="{{ route('reportes.index') }}" class="text-gray-700 hover:text-blue-500">Generar desempeño de estudiantes</a>
+                <a href="{{ route('estadisticas.index') }}" class="text-gray-700 hover:text-blue-500">Reportes y Estadísticas</a>
             </div>
 
             <!-- Usuario y Cerrar sesión -->
@@ -31,4 +33,5 @@
         @yield('content')
     </main>
 </body>
+
 </html>

@@ -5,13 +5,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\InformeController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReporteEstadisticaController;
 
 // ------------------------
 // Landing page
 // ------------------------
-Route::get('/', function () { 
-    return view('welcome'); 
+Route::get('/', function () {
+    return view('welcome');
 });
 
 // ------------------------
@@ -45,6 +47,9 @@ Route::middleware('auth')->group(function() {
 
     // CRUD completo de Informes
     Route::resource('informes', InformeController::class);
+
+    Route::resource('reportes', ReporteController::class);
+    Route::resource('estadisticas', ReporteEstadisticaController::class);
 
     // Perfil de usuario
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

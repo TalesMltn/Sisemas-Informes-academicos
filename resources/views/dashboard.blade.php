@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-cover bg-center p-6 rounded-lg" 
+<div class="min-h-screen bg-cover bg-center p-6 rounded-lg"
      style="background-image: url('{{ asset('image/deskl.png') }}');">
 
     <h1 class="text-2xl font-bold mb-6 text-white drop-shadow-lg">Dashboard</h1>

@@ -1,4 +1,4 @@
-root = true
+PHProot = true
 
 [*]
 charset = utf-8
