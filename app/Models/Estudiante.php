@@ -9,10 +9,8 @@ class Estudiante extends Model
 {
     use HasFactory;
 
-    // Nombre de la tabla (Laravel lo infiere, pero lo ponemos explícito por claridad)
     protected $table = 'estudiantes';
 
-    // Campos que se pueden asignar en masa
     protected $fillable = [
         'nombre',
         'email',

@@ -2,3 +2,4 @@ INSERT INTO estudiantes (nombre, correo, telefono, created_at, updated_at) VALUE
 INSERT INTO estudiantes (nombre, correo, telefono, created_at, updated_at) VALUES ('Juanito Pérez', '', '987000021', '2025-10-17 00:31:33', '2025-10-17 00:31:33');
 INSERT INTO estudiantes (nombre, correo, telefono, created_at, updated_at) VALUES ('El Brayan', '', '964929011', '2025-10-17 00:32:27', '2025-10-17 00:32:27');
 INSERT INTO informes (titulo, descripcion, fecha, estudiante_id, created_at, updated_at) VALUES ('d44d4d4d', 'bbbbbbbbb', '2025-12-15', 2, NOW(), NOW());
+INSERT INTO estudiantes (nombre, correo, telefono, created_at, updated_at) VALUES ('Juanito Pérez', '', '9649293941', '2025-10-23 18:09:16', '2025-10-23 18:09:16');

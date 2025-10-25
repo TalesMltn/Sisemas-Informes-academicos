@@ -2,88 +2,81 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Informe;
 use App\Models\Estudiante;
-use Illuminate\Http\Request;
 
 class InformeController extends Controller
 {
-    /**
-     * Mostrar listado de informes.
-     */
+    // 🟩 Listar todos los informes
     public function index()
     {
         $informes = Informe::with('estudiante')->get();
         return view('informes.index', compact('informes'));
     }
 
-    /**
-     * Mostrar formulario para crear informe.
-     */
+    // 🟩 Mostrar formulario de creación
     public function create()
     {
         $estudiantes = Estudiante::all();
         return view('informes.create', compact('estudiantes'));
     }
 
-    /**
-     * Guardar nuevo informe.
-     */
+    // 🟩 Guardar nuevo informe
     public function store(Request $request)
     {
         $request->validate([
-            'estudiante_id' => 'required|exists:estudiantes,id',
-            'titulo'        => 'required|string|max:255',
-            'descripcion'   => 'required|string',
-            'fecha'         => 'required|date',
+            'titulo' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'fecha' => 'required|date',
+            'estudiante_id' => 'required|integer|exists:estudiantes,id',
         ]);
 
         Informe::create($request->all());
 
-        return redirect()->route('informes.index')->with('success', 'Informe creado correctamente.');
+        return redirect()->route('informes.index')
+                         ->with('success', 'Informe creado correctamente.');
     }
 
-    /**
-     * Mostrar detalle de un informe.
-     */
-    public function show(Informe $informe)
+    // 🟩 Mostrar un informe específico
+    public function show($id)
     {
+        $informe = Informe::with('estudiante')->findOrFail($id);
         return view('informes.show', compact('informe'));
     }
 
-    /**
-     * Formulario para editar informe.
-     */
-    public function edit(Informe $informe)
+    // 🟩 Mostrar formulario de edición
+    public function edit($id)
     {
+        $informe = Informe::findOrFail($id);
         $estudiantes = Estudiante::all();
         return view('informes.edit', compact('informe', 'estudiantes'));
     }
 
-    /**
-     * Actualizar informe.
-     */
-    public function update(Request $request, Informe $informe)
+    // 🟩 Actualizar un informe
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'estudiante_id' => 'required|exists:estudiantes,id',
-            'titulo'        => 'required|string|max:255',
-            'descripcion'   => 'required|string',
-            'fecha'         => 'required|date',
+            'titulo' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'fecha' => 'required|date',
+            'estudiante_id' => 'required|integer|exists:estudiantes,id',
         ]);
 
+        $informe = Informe::findOrFail($id);
         $informe->update($request->all());
 
-        return redirect()->route('informes.index')->with('success', 'Informe actualizado correctamente.');
+        return redirect()->route('informes.index')
+                         ->with('success', 'Informe actualizado correctamente.');
     }
 
-    /**
-     * Eliminar informe.
-     */
-    public function destroy(Informe $informe)
+    // 🟩 Eliminar un informe
+    public function destroy($id)
     {
+        $informe = Informe::findOrFail($id);
         $informe->delete();
 
-        return redirect()->route('informes.index')->with('success', 'Informe eliminado correctamente.');
+        return redirect()->route('informes.index')
+                         ->with('success', 'Informe eliminado correctamente.');
     }
 }
